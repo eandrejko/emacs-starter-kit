@@ -1,0 +1,131 @@
+;; Font
+
+(set-face-font 'default "-apple-anonymous-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+
+;;Color Themes
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-charcoal-black)
+
+;; TextMate mode
+(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
+(require 'textmate)
+(textmate-mode)
+
+;; DESCRIPTION: topfunky settings
+
+(add-to-list 'load-path (concat dotfiles-dir "/vendor"))
+
+;; Snippets
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/yasnippet.el"))
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory (concat dotfiles-dir "/vendor/yasnippet.el/snippets"))
+
+;; Commands
+(require 'unbound)
+
+;; Minor Modes
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
+(require 'textmate)
+(textmate-mode)
+(require 'whitespace)
+
+;; Major Modes
+
+;; Javascript
+;; TODO javascript-indent-level 2
+
+;; Rinari
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/rinari"))
+(require 'rinari)
+
+(require 'textile-mode)
+(add-to-list 'auto-mode-alist '("\\.textile\\'" . textile-mode))
+
+(autoload 'markdown-mode "markdown-mode.el"
+  "Major mode for editing Markdown files" t)
+
+(require 'haml-mode)
+(add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
+(define-key haml-mode-map [(control meta down)] 'haml-forward-sexp)
+(define-key haml-mode-map [(control meta up)] 'haml-backward-sexp)
+(define-key haml-mode-map [(control meta left)] 'haml-up-list)
+(define-key haml-mode-map [(control meta right)] 'haml-down-list)
+
+(require 'sass-mode)
+(add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
+
+(add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
+
+;; XCODE
+(require 'cc-mode)
+(require 'xcode)
+(define-key objc-mode-map [(meta r)] 'xcode-compile)
+(define-key objc-mode-map [(meta K)] 'xcode-clean)
+(add-hook 'c-mode-common-hook
+          (lambda()
+            (local-set-key  [(meta O)] 'ff-find-other-file)))
+(add-hook 'c-mode-common-hook
+          (lambda()
+            (local-set-key (kbd "C-c <right>") 'hs-show-block)
+            (local-set-key (kbd "C-c <left>")  'hs-hide-block)
+            (local-set-key (kbd "C-c <up>")    'hs-hide-all)
+            (local-set-key (kbd "C-c <down>")  'hs-show-all)
+            (hs-minor-mode t)))             ; Hide and show blocks
+
+;; Color Themes
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
+(require 'color-theme)
+(color-theme-initialize)
+
+;; Functions
+
+(require 'line-num)
+
+;; Full screen toggle
+(defun toggle-fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
+                                           nil
+                                         'fullboth)))
+(global-set-key (kbd "M-n") 'toggle-fullscreen)
+
+
+;; Keyboard
+
+;; Split Windows
+(global-set-key [f6] 'split-window-horizontally)
+(global-set-key [f7] 'split-window-vertically)
+(global-set-key [f8] 'delete-window)
+
+;; Some Mac-friendly key counterparts
+(global-set-key (kbd "M-s") 'save-buffer)
+(global-set-key (kbd "M-z") 'undo)
+
+;; Keyboard Overrides
+(define-key textile-mode-map (kbd "M-s") 'save-buffer)
+(define-key text-mode-map (kbd "M-s") 'save-buffer)
+
+(global-set-key [(meta up)] 'beginning-of-buffer)
+(global-set-key [(meta down)] 'end-of-buffer)
+
+(global-set-key [(meta shift right)] 'ido-switch-buffer)
+(global-set-key [(meta shift up)] 'recentf-ido-find-file)
+(global-set-key [(meta shift down)] 'ido-find-file)
+(global-set-key [(meta shift left)] 'magit-status)
+
+(global-set-key [(meta H)] 'delete-other-windows)
+
+(global-set-key [(meta D)] 'backward-kill-word) ;; (meta d) is opposite
+
+(global-set-key [(meta N)] 'cleanup-buffer)
+
+(global-set-key [(control \])] 'indent-rigidly)
+
+;; Other
+
+(prefer-coding-system 'utf-8)
+
+(server-start)
