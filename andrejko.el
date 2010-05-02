@@ -1,3 +1,5 @@
+(set-frame-parameter nil 'alpha 0.9)
+
 ;; Font
 
 (set-face-font 'default "-apple-anonymous-medium-r-normal--11-0-72-72-m-0-iso10646-1")
