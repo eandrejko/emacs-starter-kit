@@ -23,8 +23,6 @@
 (textexpander-sync)
 (setq default-abbrev-mode t)
 
-
-
 ;; DESCRIPTION: topfunky settings
 
 (add-to-list 'load-path (concat dotfiles-dir "/vendor"))
@@ -42,6 +40,15 @@
 (require 'whitespace)
 
 ;; Major Modes
+
+;; YAML Mode
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/yaml-mode"))
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-hook 'yaml-mode-hook
+      '(lambda ()
+        (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+
 
 ;; ESS (for R code)
 
@@ -87,7 +94,7 @@
             (local-set-key (kbd "C-c <left>")  'hs-hide-block)
             (local-set-key (kbd "C-c <up>")    'hs-hide-all)
             (local-set-key (kbd "C-c <down>")  'hs-show-all)
-            (hs-minor-mode t)))             ; Hide and show blocks
+            (hs-minor-mode t)))         ; Hide and show blocks
 
 ;; Color Themes
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
@@ -154,4 +161,6 @@
 
 (global-auto-revert-mode 1)
 
-(global-set-key (kbd "M-RET") 'ns-toggle-fullscreen)
+;; (global-set-key (kbd "M-RET") 'ns-toggle-fullscreen)
+
+;; (setq shift-select-mode "t") ; “t” for true, “nil” for false
