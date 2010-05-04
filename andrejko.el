@@ -1,8 +1,10 @@
-(set-frame-parameter nil 'alpha 0.9)
+;; specify window opacity
+
+(set-frame-parameter nil 'alpha 0.95)
 
 ;; Font
 
-(set-face-font 'default "-apple-anonymous-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+(set-face-font 'default "-*-anonymous-medium-r-normal--11-0-72-72-m-0-iso10646-1")
 
 ;;Color Themes
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
@@ -35,6 +37,11 @@
 (require 'whitespace)
 
 ;; Major Modes
+
+;; ESS (for R code)
+
+(load "/Applications/Emacs.app/Contents/Resources/site-lisp/ess/ess-site.el")
+(require 'ess-site)
 
 ;; Javascript
 ;; TODO javascript-indent-level 2
@@ -96,6 +103,11 @@
 
 
 ;; Keyboard
+
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
 ;; Split Windows
 (global-set-key [f6] 'split-window-horizontally)
