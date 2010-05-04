@@ -13,7 +13,7 @@
 (color-theme-charcoal-black)
 
 ;; TextMate mode
-(add-to-list 'load-path "/vendor/textmate.el")
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
 (require 'textmate)
 (textmate-mode)
 
@@ -39,9 +39,6 @@
 (require 'unbound)
 
 ;; Minor Modes
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
-(require 'textmate)
-(textmate-mode)
 (require 'whitespace)
 
 ;; Major Modes
@@ -156,3 +153,5 @@
 (setq tramp-default-method "ssh")
 
 (global-auto-revert-mode 1)
+
+(global-set-key (kbd "M-RET") 'ns-toggle-fullscreen)
