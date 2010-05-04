@@ -154,3 +154,5 @@
 
 (require 'tramp)
 (setq tramp-default-method "ssh")
+
+(global-auto-revert-mode 1)
