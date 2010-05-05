@@ -10,7 +10,34 @@
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
 (require 'color-theme)
 (color-theme-initialize)
-(color-theme-charcoal-black)
+;;(color-theme-charcoal-black)
+
+(defun color-theme-andrejko-dark ()
+  (interactive)
+  (color-theme-install
+   '(color-theme-andrejko-dark
+      ((background-color . "#141414")
+      (background-mode . dark)
+      (border-color . "#1a1a1a")
+      (cursor-color . "#ffffff")
+      (foreground-color . "#e6e1dc")
+      (mouse-color . "black"))
+     (fringe ((t (:background "#1a1a1a"))))
+     (mode-line ((t (:foreground "#a5acc0" :background "#363636"))))
+     (region ((t (:background "#67660a"))))
+     (font-lock-builtin-face ((t (:foreground "#729fcf"))))
+     (font-lock-comment-face ((t (:foreground "#bc9458" :italic t))))
+     (font-lock-function-name-face ((t (:foreground "#ffc66d"))))
+     (font-lock-keyword-face ((t (:foreground "#cc78ss"))))
+     (font-lock-string-face ((t (:foreground "#a5c261"))))
+     (font-lock-type-face ((t (:foreground "#a3f0de"))))
+     (font-lock-variable-name-face ((t (:foreground "#D0D0FF"))))
+     (minibuffer-prompt ((t (:foreground "#729fcf" :bold t))))
+     (font-lock-warning-face ((t (:foreground "Red" :bold t))))
+     )))
+(provide 'color-theme-andrejko-dark)
+
+(color-theme-andrejko-dark)
 
 ;; TextMate mode
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
