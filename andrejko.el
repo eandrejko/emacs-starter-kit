@@ -10,13 +10,13 @@
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
 (require 'color-theme)
 (color-theme-initialize)
-;;(color-theme-charcoal-black)
+(color-theme-charcoal-black)
 
 (defun color-theme-andrejko-dark ()
   (interactive)
   (color-theme-install
    '(color-theme-andrejko-dark
-      ((background-color . "#141414")
+     ((background-color . "#141414")
       (background-mode . dark)
       (border-color . "#1a1a1a")
       (cursor-color . "#ffffff")
@@ -24,18 +24,20 @@
       (mouse-color . "black"))
      (fringe ((t (:background "#1a1a1a"))))
      (mode-line ((t (:foreground "#a5acc0" :background "#363636"))))
-     (region ((t (:background "#67660a"))))
-     (font-lock-builtin-face ((t (:foreground "#729fcf"))))
+     (region ((t (:background "#5a647e"))))
+     (font-lock-builtin-face ((t (:foreground "#6e9cbe"))))
+     (font-lock-reference-face ((t (:foreground "#ff0000"))))
      (font-lock-comment-face ((t (:foreground "#bc9458" :italic t))))
      (font-lock-function-name-face ((t (:foreground "#ffc66d"))))
-     (font-lock-keyword-face ((t (:foreground "#cc78ss"))))
+     (font-lock-keyword-face ((t (:foreground "#cc7833"))))
      (font-lock-string-face ((t (:foreground "#a5c261"))))
-     (font-lock-type-face ((t (:foreground "#a3f0de"))))
+     (font-lock-type-face ((t (:foreground "#6E9CBE")))) ;; class names
      (font-lock-variable-name-face ((t (:foreground "#D0D0FF"))))
      (minibuffer-prompt ((t (:foreground "#729fcf" :bold t))))
      (font-lock-warning-face ((t (:foreground "Red" :bold t))))
      )))
 (provide 'color-theme-andrejko-dark)
+
 
 (color-theme-andrejko-dark)
 
@@ -73,8 +75,8 @@
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-hook 'yaml-mode-hook
-      '(lambda ()
-        (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+          '(lambda ()
+             (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 
 
 ;; ESS (for R code)
