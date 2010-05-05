@@ -466,7 +466,6 @@
 
 (require 'autopair)
 (autopair-global-mode)
-
 ;; Other
 
 (prefer-coding-system 'utf-8)
