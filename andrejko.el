@@ -304,7 +304,7 @@
       (foreground-color . "#e6e1dc")
       (mouse-color . "black"))
      (fringe ((t (:background "#1a1a1a"))))
-     (mode-line ((t (:foreground "#a5acc0" :background "#363636"))))
+     (mode-line ((t (:foreground "#a5acc0" :background "#2f5056"))))
      (region ((t (:background "#5a647e"))))
      (font-lock-builtin-face ((t (:foreground "#6e9cbe"))))
      (font-lock-reference-face ((t (:foreground "#ff0000"))))
@@ -318,7 +318,9 @@
      (font-lock-warning-face ((t (:foreground "Red" :bold t))))
      )))
 (provide 'color-theme-andrejko-dark)
-
+(setq ansi-term-color-vector ["white" "black" "red" "lime green" "yellow" "DeepSkyBlue" "magenta" "cyan" "white"])
+;;(setq term-default-bg-color "#1e4046")
+;; mode-line-toggle-modified to force save
 
 (color-theme-andrejko-dark)
 
@@ -459,6 +461,11 @@
 (global-set-key [(meta N)] 'cleanup-buffer)
 
 (global-set-key [(control \])] 'indent-rigidly)
+
+;; Autopairing
+
+(require 'autopair)
+(autopair-global-mode)
 
 ;; Other
 
