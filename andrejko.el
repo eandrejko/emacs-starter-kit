@@ -4,7 +4,8 @@
 
 ;; Font
 
-(set-face-font 'default "-*-anonymous-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+;;(set-face-font 'default "-*-bitstreamverasansmono-medium-r-normal--10-0-72-72-m-0-iso10646-1")
+(set-face-font 'default "-apple-bitstream vera sans mono-medium-r-normal--11-0-72-72-m-0-iso10646-1")
 
 ;;Color Themes
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
@@ -297,13 +298,13 @@
   (interactive)
   (color-theme-install
    '(color-theme-andrejko-dark
-     ((background-color . "#141414")
+     ((background-color . "#0f0f0f")
       (background-mode . dark)
       (border-color . "#1a1a1a")
       (cursor-color . "#ffffff")
       (foreground-color . "#e6e1dc")
       (mouse-color . "black"))
-     (fringe ((t (:background "#1a1a1a"))))
+     (fringe ((t (:foreground "Red" :background "#1a1a1a"))))
      (mode-line ((t (:foreground "#a5acc0" :background "#2f5056"))))
      (region ((t (:background "#5a647e"))))
      (font-lock-builtin-face ((t (:foreground "#6e9cbe"))))
@@ -361,6 +362,16 @@
           '(lambda ()
              (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 
+;; Auto Complete
+
+(add-to-list 'load-path "~/.emacs.d/vendor/")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/vendor/ac-dict")
+(ac-config-default)
+;;(setq ac-auto-start nil)
+;;(global-set-key "\M-/" 'auto-complete)
+;; wait for at least five characters before completion
+(setq ac-auto-start 5)
 
 ;; ESS (for R code)
 
@@ -477,6 +488,34 @@
 
 (global-auto-revert-mode 1)
 
-;; (global-set-key (kbd "M-RET") 'ns-toggle-fullscreen)
+;; fix commit ammending in magit
+(global-set-key (kbd "C-c a") 'magit-log-edit-toggle-amending)
+
+;; Egg for git (instead of magit)
+;; Egg is kind of ugly, needs to be customized
+;;(add-to-list 'load-path (concat dotfiles-dir "/vendor/egg"))
+;;
+;; (require 'egg)
 
 ;; (setq shift-select-mode "t") ; “t” for true, “nil” for false
+
+
+;; Ruby complexity
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-complexity"))
+(require 'linum)
+(require 'ruby-complexity)
+(add-hook 'ruby-mode-hook
+          (function (lambda ()
+                     (flymake-mode)
+                     (linum-mode)
+                     (ruby-complexity-mode))))
+
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(ruby-complexity-complexity-high ((t (:foreground "#ff3333"))))
+ '(ruby-complexity-complexity-low ((t (:foreground "#888"))))
+ '(ruby-complexity-complexity-normal ((t (:foreground "#f08888")))))
+
