@@ -1,6 +1,6 @@
 ;; specify window opacity
 
-(set-frame-parameter nil 'alpha 0.95)
+(set-frame-parameter nil 'alpha 0.97)
 
 ;; Font
 
@@ -330,6 +330,11 @@
 (require 'textmate)
 (textmate-mode)
 
+;; Git blame from git-emacs package
+;; (add-to-list 'load-path "~/.emacs.d/vendor/mo-git-blame")
+;; (autoload 'mo-git-blame-file "mo-git-blame" nil t)
+;; (autoload 'mo-git-blame-current "mo-git-blame" nil t)
+
 ;; TextExpander shortcuts
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/textexpander-sync-el"))
 (require 'textexpander-sync)
@@ -519,3 +524,14 @@
  '(ruby-complexity-complexity-low ((t (:foreground "#888"))))
  '(ruby-complexity-complexity-normal ((t (:foreground "#f08888")))))
 
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+;; for zooming in and out like other OS X applications
+;; from: http://emacs-fu.blogspot.com/2008/12/zooming-inout.html
+(defun djcb-zoom (n)
+  "with positive N, increase the font size, otherwise decrease it"
+  (set-face-attribute 'default (selected-frame) :height 
+                      (+ (face-attribute 'default :height) (* (if (> n 0) 1 -1) 10))))
+
+(global-set-key (kbd "M-_")      '(lambda nil (interactive) (djcb-zoom 1)))
+(global-set-key (kbd "M-+")      '(lambda nil (interactive) (djcb-zoom -1)))
