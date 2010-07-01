@@ -552,3 +552,10 @@
 
 (global-set-key (kbd "C-c t") 'multi-term-next)
 (global-set-key (kbd "C-c T") 'multi-term) ;; create a new one
+
+
+;; rainbow mode for coloring
+
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/rainbow-mode"))
+(require 'rainbow-mode)
+(add-hook 'css-mode-hook 'rainbow-mode)
