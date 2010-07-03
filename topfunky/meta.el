@@ -1,7 +1,6 @@
 
-;; Lines tall, characters wide
-;;(set-frame-height (car (frame-list)) 20)
-;;(set-frame-width (car (frame-list)) 60)
+;; For Emacs from source. Opens files in the existing frame.
+;;(setq ns-pop-up-frames nil)
 
 ;; Save backups in one place
 ;; Put autosave files (ie #foo#) in one place, *not*
