@@ -3,11 +3,8 @@ backups/*
 *elc
 places
 .DS_Store
-
-/#topfunky.el#
 /url/cookies
-/auto-save-list/.saves-68160-barquetine.local~
-/auto-save-list/.saves-86836-altocumulus.local~
+/auto-save-list/*
 /ac-comphist.dat
-/auto-save-list/.saves-26776-barquetine.local~
 /games/tetris-scores
+
