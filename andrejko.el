@@ -19,7 +19,7 @@
   (interactive)
   (color-theme-install
    '(color-theme-andrejko-dark
-     ((background-color . "#2d2d2d")
+     ((background-color . "#141418")
       (background-mode . dark)
       (border-color . "#1a1a1a")
       (cursor-color . "#ffffff")
