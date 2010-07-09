@@ -184,12 +184,12 @@
 (require 'line-num)
 
 ;; Full screen toggle
-(defun toggle-fullscreen ()
-  (interactive)
-  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
-                                           nil
-                                         'fullboth)))
-(global-set-key (kbd "M-n") 'toggle-fullscreen)
+;; (defun toggle-fullscreen ()
+;;   (interactive)
+;;   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
+;;                                            nil
+;;                                          'fullboth)))
+(global-set-key (kbd "M-n") 'ns-toggle-fullscreen)
 
 
 ;; Keyboard
@@ -319,3 +319,9 @@
 (require 'rainbow-mode)
 (add-hook 'css-mode-hook 'rainbow-mode)
 
+
+;; for emacs 23
+(setq mac-option-key-is-meta nil
+      mac-command-key-is-meta t
+      mac-command-modifier 'meta
+      mac-option-modifier nil)
