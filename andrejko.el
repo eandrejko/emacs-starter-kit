@@ -192,6 +192,8 @@
 (global-set-key (kbd "M-n") 'ns-toggle-fullscreen)
 
 
+
+
 ;; Keyboard
 
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
@@ -204,13 +206,19 @@
 (global-set-key [f7] 'split-window-vertically)
 (global-set-key [f8] 'delete-window)
 
-;; Some Mac-friendly key counterparts
-(global-set-key (kbd "M-s") 'save-buffer)
-(global-set-key (kbd "M-z") 'undo)
 
 ;; Keyboard Overrides
-(define-key textile-mode-map (kbd "M-s") 'save-buffer)
-(define-key text-mode-map (kbd "M-s") 'save-buffer)
+
+(defun save-buffer-save-always ()
+  "Save the buffer even if it is not modified."
+  (interactive)
+  (set-buffer-modified-p t)
+  (save-buffer))
+
+;; Some Mac-friendly key counterparts
+(global-set-key (kbd "M-s") 'save-buffer-save-always)
+(global-set-key (kbd "M-z") 'undo)
+
 
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)
@@ -319,9 +327,16 @@
 (require 'rainbow-mode)
 (add-hook 'css-mode-hook 'rainbow-mode)
 
-
 ;; for emacs 23
 (setq mac-option-key-is-meta nil
       mac-command-key-is-meta t
       mac-command-modifier 'meta
       mac-option-modifier nil)
+
+;; force yank/kill to use the clipboard
+(setq x-select-enable-clipboard t)
+
+;; visual bell is annoying
+(setq visible-bell nil)
+
+(setq ido-use-filename-at-point 'guess)
