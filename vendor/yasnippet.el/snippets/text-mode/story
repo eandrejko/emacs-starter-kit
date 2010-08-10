@@ -1,0 +1,4 @@
+= ${1:Story Title}
+Type: feature
+== Description
+In order to ${2:motivation} 
