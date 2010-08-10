@@ -37,11 +37,40 @@
      (font-lock-string-face ((t (:foreground "#a5c261"))))
      (font-lock-type-face ((t (:foreground "#6E9CBE" :weight bold)))) ;; class names
      (font-lock-variable-name-face ((t (:foreground "#D0D0FF"))))
+     (font-lock-ess-R-prompt-face ((t (:foreground "#FF0000" bold))))
      (minibuffer-prompt ((t (:foreground "#729fcf" :weight bold))))
      (font-lock-warning-face ((t (:foreground "Red" :weight bold))))
      (font-lock-constant-face ((t (:foreground "#3182be"))))
      )))
 (provide 'color-theme-andrejko-dark)
+(defun color-theme-andrejko-dark-2 ()
+  (interactive)
+  (color-theme-install
+   '(color-theme-andrejko-dark-2
+     ((background-color . "#141418")
+      (background-mode . dark)
+      (border-color . "#1a1a1a")
+      (cursor-color . "#ffffff")
+      (foreground-color . "#e6e1dc")
+      (mouse-color . "black"))
+     (fringe ((t (:foreground "Red" :background "#1a1a1a"))))
+     (mode-line ((t (:foreground "#a5acc0" :background "#2f5056"))))
+     (region ((t (:background "#5a647e"))))
+     (font-lock-builtin-face ((t (:foreground "#6e9cbe"))))
+     (font-lock-reference-face ((t (:foreground "#ff0000"))))
+     (font-lock-comment-face ((t (:foreground "#bc9458" :italic t))))
+     (font-lock-comment-delimiter-face ((t (:foreground "#8c8c8c"))))
+     (font-lock-function-name-face ((t (:foreground "#ffc66d"))))
+     (font-lock-keyword-face ((t (:foreground "#ff0000"))))
+     (font-lock-string-face ((t (:foreground "#a5c261"))))
+     (font-lock-type-face ((t (:foreground "#6E9CBE" :weight bold)))) ;; class names
+     (font-lock-variable-name-face ((t (:foreground "#D0D0FF"))))
+     (font-lock-ess-R-prompt-face ((t (:foreground "#FF0000" bold))))
+     (minibuffer-prompt ((t (:foreground "#729fcf" :weight bold))))
+     (font-lock-warning-face ((t (:foreground "Red" :weight bold))))
+     (font-lock-constant-face ((t (:foreground "#3182be"))))
+     )))
+(provide 'color-theme-andrejko-dark-2)
 (setq ansi-term-color-vector [unspecified unspecified "red" "lime green" "yellow" "DeepSkyBlue" "magenta" "cyan" "white"])
 ;;(setq term-default-bg-color "#0f0f0f")
 ;; mode-line-toggle-modified to force save
@@ -74,11 +103,11 @@
 (textmate-mode)
 
 ;; Git blame from git-emacs package
-;; (add-to-list 'load-path "~/.emacs.d/vendor/mo-git-blame")
-;; (autoload 'mo-git-blame-file "mo-git-blame" nil t)
-;; (autoload 'mo-git-blame-current "mo-git-blame" nil t)
+;(add-to-list 'load-path "~/.emacs.d/vendor/mo-git-blame")
+;(autoload 'mo-git-blame-file "mo-git-blame" nil t)
+;(autoload 'mo-git-blame-current "mo-git-blame" nil t)
 
-;; (require 'git-blame)
+;(require 'git-blame)
 
 
 
@@ -130,8 +159,9 @@
 
 ;; ESS (for R code)
 
-;; (load "/Applications/Emacs.app/Contents/Resources/site-lisp/ess/ess-site.el")
-;; (require 'ess-site)
+(load "/Applications/Emacs.app/Contents/Resources/site-lisp/ess/lisp/ess-site.el")
+(require 'ess-site)
+(ess-toggle-underscore nil)
 
 ;; Javascript
 ;; TODO javascript-indent-level 2
@@ -303,6 +333,8 @@
 (global-set-key (kbd "M-_")      '(lambda nil (interactive) (djcb-zoom -1)))
 (global-set-key (kbd "M-+")      '(lambda nil (interactive) (djcb-zoom 1)))
 
+(add-hook 'R-mode-hook
+          (lambda () (setq 'font-lock-keyword-face ((t (:foreground "#ff0000"))))))
 
 ;; Multi-term for terminals
  (require 'multi-term)
@@ -340,3 +372,5 @@
 (setq visible-bell nil)
 
 (setq ido-use-filename-at-point 'guess)
+
+
