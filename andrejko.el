@@ -374,3 +374,9 @@
 (setq ido-use-filename-at-point 'guess)
 
 
+(defun add-pivotal-story (&optional b e) 
+  (interactive "r")
+  (shell-command-on-region b e "~/projects/pivotal-client/bin/create-story" (current-buffer) t)
+  (comment-region (mark) (point)))
+
+(global-set-key "\C-cs" 'add-pivotal-story)
