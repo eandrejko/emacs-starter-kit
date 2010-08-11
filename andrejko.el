@@ -6,7 +6,8 @@
 
 ;;(set-face-font 'default "-*-bitstreamverasansmono-medium-r-normal--10-0-72-72-m-0-iso10646-1")
 ;;(set-face-font 'default "-apple-bitstream vera sans mono-medium-r-normal--11-0-72-72-m-0-iso10646-1")
-(set-face-font 'default "-*-inconsolata-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+;;(set-face-font 'default "-*-inconsolata-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+(set-face-font 'default "-*-anonymous-medium-r-normal--11-0-72-72-m-0-iso10646-1")
 
 ;;Color Themes
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
@@ -380,3 +381,12 @@
   (comment-region (mark) (point)))
 
 (global-set-key "\C-cs" 'add-pivotal-story)
+
+;; anything mode -- not sure I like it (or get it) yet
+;;(require 'anything)
+
+(setq-default ispell-program-name "/usr/local/bin/aspell")
+
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/flymake-ruby"))
+(require 'flymake-ruby)
+(add-hook 'ruby-mode-hook 'flymake-ruby-load)
