@@ -5,9 +5,17 @@
 ;; Font
 
 ;;(set-face-font 'default "-*-bitstreamverasansmono-medium-r-normal--10-0-72-72-m-0-iso10646-1")
-;;(set-face-font 'default "-apple-bitstream vera sans mono-medium-r-normal--11-0-72-72-m-0-iso10646-1")
-;;(set-face-font 'default "-*-inconsolata-medium-r-normal--11-0-72-72-m-0-iso10646-1")
-(set-face-font 'default "-*-anonymous-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+;; (set-face-font 'default "-apple-bitstream vera sans mono-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+;; (set-face-font 'default "-*-inconsolata-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+;; (set-face-font 'default "-*-anonymous-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+;; (set-face-font 'default"-*-menlo-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+;; (set-face-font 'default "-*-proggysquare-medium-r-normal--10-0-72-72-m-0-iso10646-1")
+;; (set-face-attribute 'default nil :font "M+_1mn-10")
+;; (set-face-attribute 'default nil :font "Andale Mono-10")
+;; (set-face-attribute 'default nil :font "Droid Sans Mono-10")
+(set-face-attribute 'default nil :font "ProFont X-10")
+;;(set-face-attribute 'default nil :font "ProggySquareTT-10")
+
 
 ;;Color Themes
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/color-theme"))
@@ -160,7 +168,7 @@
 
 ;; ESS (for R code)
 
-(load "/Applications/Emacs.app/Contents/Resources/site-lisp/ess/lisp/ess-site.el")
+(load "~/.emacs.d/ess-5.11/lisp/ess-site.el")
 (require 'ess-site)
 (ess-toggle-underscore nil)
 
@@ -309,7 +317,7 @@
 (require 'ruby-complexity)
 (add-hook 'ruby-mode-hook
           (function (lambda ()
-                     (flymake-mode)
+                     (flymake-mode t)
                      (linum-mode)
                      (ruby-complexity-mode))))
 
@@ -323,6 +331,9 @@
  '(ruby-complexity-complexity-normal ((t (:foreground "#f08888")))))
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+;; for switching frames using the OS X default key bindings
+(global-set-key (kbd "M-`") 'other-frame)
 
 ;; for zooming in and out like other OS X applications
 ;; from: http://emacs-fu.blogspot.com/2008/12/zooming-inout.html
@@ -385,8 +396,81 @@
 ;; anything mode -- not sure I like it (or get it) yet
 ;;(require 'anything)
 
-(setq-default ispell-program-name "/usr/local/bin/aspell")
+(setq-default ispell-program-name "/opt/local/bin/aspell")
+(dolist (hook '(text-mode-hook))
+      (add-hook hook (lambda () (flyspell-mode 1))))
 
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/flymake-ruby"))
 (require 'flymake-ruby)
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)
+
+(setq dired-auto-revert-buffer t)
+
+;; ruby code coverage
+(require 'rcov-overlay)
+
+(require 'htmlize)
+
+;; allow for export=>beamer by placing
+
+;; #+LaTeX_CLASS: beamer in org files
+(unless (boundp 'org-export-latex-classes)
+  (setq org-export-latex-classes nil))
+(add-to-list 'org-export-latex-classes
+  ;; beamer class, for presentations
+  '("beamer"
+     "\\documentclass[11pt]{beamer}\n
+      \\mode<{{{beamermode}}}>\n
+      \\usetheme{{{{beamertheme}}}}\n
+      \\usecolortheme{{{{beamercolortheme}}}}\n
+      \\beamertemplateballitem\n
+      \\setbeameroption{show notes}
+      \\usepackage[utf8]{inputenc}\n
+      \\usepackage[T1]{fontenc}\n
+      \\usepackage{hyperref}\n
+      \\usepackage{color}
+      \\usepackage{listings}
+      \\usepackage{verbatim}\n
+      \\institute{{{{beamerinstitute}}}}\n          
+       \\subject{{{{beamersubject}}}}\n"
+
+     ("\\section{%s}" . "\\section*{%s}")
+     
+     ("\\begin{frame}[fragile]\\frametitle{%s}"
+       "\\end{frame}"
+       "\\begin{frame}[fragile]\\frametitle{%s}"
+       "\\end{frame}")))
+
+  ;; letter class, for formal letters
+
+  (add-to-list 'org-export-latex-classes
+
+  '("letter"
+     "\\documentclass[11pt]{letter}\n
+      \\usepackage[utf8]{inputenc}\n
+      \\usepackage[T1]{fontenc}\n
+      \\usepackage{color}"
+     
+     ("\\section{%s}" . "\\section*{%s}")
+     ("\\subsection{%s}" . "\\subsection*{%s}")
+     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+     ("\\paragraph{%s}" . "\\paragraph*{%s}")
+     ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+(setq org-export-latex-listings t)
+
+;; this interferes with the keybindings used for zooming text: M-_
+;; (require 'undo-tree)
+;; (global-undo-tree-mode)
+
+(require 'watchr)
+
+(setq rsense-home "/opt/rsense-0.3")
+(add-to-list 'load-path (concat rsense-home "/etc"))
+(require 'rsense)
+
+;; ssh maxstudio java -Xmx20000M -cp /home/andrejko/projects/community/clojure/clojure.jar:/home/andrejko/projects/community/clojure-contrib/target/clojure-contrib-1.2.0-SNAPSHOT.jar:/opt/incanter/incanter.jar:/home/andrejko/projects/recommendations/lib/java/vw/target/vw-control-0.1-jar-with-dependencies.jar clojure.main
+
+(setq auto-fill-mode -1)
+(setq-default fill-column 99999)
+(setq fill-column 99999)
