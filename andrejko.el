@@ -1,3 +1,5 @@
+(setq debug-on-error t)
+
 ;; specify window opacity
 
 (set-frame-parameter nil 'alpha 0.97)
@@ -299,14 +301,13 @@
 
 (global-auto-revert-mode 1)
 
+;; magit for git
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/magit"))
+(require 'magit)
+
 ;; fix commit ammending in magit
 (global-set-key (kbd "C-c a") 'magit-log-edit-toggle-amending)
 
-;; Egg for git (instead of magit)
-;; Egg is kind of ugly, needs to be customized
-;;(add-to-list 'load-path (concat dotfiles-dir "/vendor/egg"))
-;;
-;; (require 'egg)
 
 ;; (setq shift-select-mode "t") ; “t” for true, “nil” for false
 
@@ -319,7 +320,8 @@
           (function (lambda ()
                      (flymake-mode t)
                      (linum-mode)
-                     (ruby-complexity-mode))))
+                     (ruby-complexity-mode)
+                     (idle-highlight))))
 
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
@@ -411,53 +413,6 @@
 
 (require 'htmlize)
 
-;; allow for export=>beamer by placing
-
-;; #+LaTeX_CLASS: beamer in org files
-(unless (boundp 'org-export-latex-classes)
-  (setq org-export-latex-classes nil))
-(add-to-list 'org-export-latex-classes
-  ;; beamer class, for presentations
-  '("beamer"
-     "\\documentclass[11pt]{beamer}\n
-      \\mode<{{{beamermode}}}>\n
-      \\usetheme{{{{beamertheme}}}}\n
-      \\usecolortheme{{{{beamercolortheme}}}}\n
-      \\beamertemplateballitem\n
-      \\setbeameroption{show notes}
-      \\usepackage[utf8]{inputenc}\n
-      \\usepackage[T1]{fontenc}\n
-      \\usepackage{hyperref}\n
-      \\usepackage{color}
-      \\usepackage{listings}
-      \\usepackage{verbatim}\n
-      \\institute{{{{beamerinstitute}}}}\n          
-       \\subject{{{{beamersubject}}}}\n"
-
-     ("\\section{%s}" . "\\section*{%s}")
-     
-     ("\\begin{frame}[fragile]\\frametitle{%s}"
-       "\\end{frame}"
-       "\\begin{frame}[fragile]\\frametitle{%s}"
-       "\\end{frame}")))
-
-  ;; letter class, for formal letters
-
-  (add-to-list 'org-export-latex-classes
-
-  '("letter"
-     "\\documentclass[11pt]{letter}\n
-      \\usepackage[utf8]{inputenc}\n
-      \\usepackage[T1]{fontenc}\n
-      \\usepackage{color}"
-     
-     ("\\section{%s}" . "\\section*{%s}")
-     ("\\subsection{%s}" . "\\subsection*{%s}")
-     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-     ("\\paragraph{%s}" . "\\paragraph*{%s}")
-     ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-(setq org-export-latex-listings t)
 
 ;; this interferes with the keybindings used for zooming text: M-_
 ;; (require 'undo-tree)
@@ -469,8 +424,18 @@
 (add-to-list 'load-path (concat rsense-home "/etc"))
 (require 'rsense)
 
-;; ssh maxstudio java -Xmx20000M -cp /home/andrejko/projects/community/clojure/clojure.jar:/home/andrejko/projects/community/clojure-contrib/target/clojure-contrib-1.2.0-SNAPSHOT.jar:/opt/incanter/incanter.jar:/home/andrejko/projects/recommendations/lib/java/vw/target/vw-control-0.1-jar-with-dependencies.jar clojure.main
-
+;; ensure no line wrapping occurs
 (setq auto-fill-mode -1)
 (setq-default fill-column 99999)
 (setq fill-column 99999)
+
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/twittering-mode"))
+(require 'twittering-mode)
+
+
+;; work around for bug related to slime and autopair
+;; http://code.google.com/p/autopair/issues/detail?id=32
+(add-hook 'sldb-mode-hook #'(lambda () (setq autopair-dont-activate t)))
+
+(set 'cursor-type 'bar)
+(set-default 'cursor-type 'bar)
