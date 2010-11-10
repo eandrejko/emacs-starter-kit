@@ -1,21 +1,24 @@
-(setq debug-on-error t)
+;(setq debug-on-error t)
+
+(setenv "PATH" (concat "/opt/local/bin:/opt/local/sbin:/Users/andrejko/projects/mspec/bin/:/opt/local/bin:/opt/local/sbin:/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home/bin:/opt/local/bin:/opt/local/sbin:/opt/local/lib/mysql5/bin:/usr/local/sphinx/bin:/Users/andrejko/bin:/Applications/Firefox 3.app/Contents/MacOS/:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/Users/andrejko/bin:/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql83/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/bin:/usr/texbin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin/:/Users/andrejko/bin:/Applications/Firefox 3.app/Contents/MacOS/:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:/Users/andrejko/bin:/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql83/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/local/bin:/usr/texbin:~/bin:/usr/local/sphinx/b" ":" (getenv "PATH")))
 
 ;; specify window opacity
 
-(set-frame-parameter nil 'alpha 0.97)
+(set-frame-parameter nil 'alpha 0.95)
 
 ;; Font
 
 ;;(set-face-font 'default "-*-bitstreamverasansmono-medium-r-normal--10-0-72-72-m-0-iso10646-1")
 ;; (set-face-font 'default "-apple-bitstream vera sans mono-medium-r-normal--11-0-72-72-m-0-iso10646-1")
-;; (set-face-font 'default "-*-inconsolata-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+;;(set-face-font 'default "-*-inconsolata-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+(set-face-font 'default "-*-monaco-medium-r-normal--10-0-72-72-m-0-iso10646-1")
 ;; (set-face-font 'default "-*-anonymous-medium-r-normal--11-0-72-72-m-0-iso10646-1")
-;; (set-face-font 'default"-*-menlo-medium-r-normal--11-0-72-72-m-0-iso10646-1")
+;;(set-face-font 'default"-*-menlo-medium-r-normal--11-0-72-72-m-0-iso10646-1")
 ;; (set-face-font 'default "-*-proggysquare-medium-r-normal--10-0-72-72-m-0-iso10646-1")
 ;; (set-face-attribute 'default nil :font "M+_1mn-10")
 ;; (set-face-attribute 'default nil :font "Andale Mono-10")
 ;; (set-face-attribute 'default nil :font "Droid Sans Mono-10")
-(set-face-attribute 'default nil :font "ProFont X-10")
+;;(set-face-attribute 'default nil :font "ProFont X-10")
 ;;(set-face-attribute 'default nil :font "ProggySquareTT-10")
 
 
@@ -32,13 +35,15 @@
    '(color-theme-andrejko-dark
      ((background-color . "#141418")
       (background-mode . dark)
-      (border-color . "#1a1a1a")
-      (cursor-color . "#ffffff")
+      (border-color . "#141418")
+      (cursor-color . "#91AAB5")
       (foreground-color . "#e6e1dc")
       (mouse-color . "black"))
-     (fringe ((t (:foreground "Red" :background "#1a1a1a"))))
+     (fringe ((t (:foreground "Red" :background "#4a4a4a"))))
      (mode-line ((t (:foreground "#a5acc0" :background "#2f5056"))))
-     (region ((t (:background "#5a647e"))))
+     (modeline-buffer-id ((t (:foreground "#a5c261"))))
+     (modeline-mousable ((t (:family "helv"))))
+     (region ((t (:background "#30343D"))))
      (font-lock-builtin-face ((t (:foreground "#6e9cbe"))))
      (font-lock-reference-face ((t (:foreground "#ff0000"))))
      (font-lock-comment-face ((t (:foreground "#bc9458" :italic t))))
@@ -52,6 +57,7 @@
      (minibuffer-prompt ((t (:foreground "#729fcf" :weight bold))))
      (font-lock-warning-face ((t (:foreground "Red" :weight bold))))
      (font-lock-constant-face ((t (:foreground "#3182be"))))
+
      )))
 (provide 'color-theme-andrejko-dark)
 (defun color-theme-andrejko-dark-2 ()
@@ -61,7 +67,6 @@
      ((background-color . "#141418")
       (background-mode . dark)
       (border-color . "#1a1a1a")
-      (cursor-color . "#ffffff")
       (foreground-color . "#e6e1dc")
       (mouse-color . "black"))
      (fringe ((t (:foreground "Red" :background "#1a1a1a"))))
@@ -167,6 +172,8 @@
 ;;(global-set-key "\M-/" 'auto-complete)
 ;; wait for at least five characters before completion
 (setq ac-auto-start 5)
+(setq ac-use-quick-help t)
+
 
 ;; ESS (for R code)
 
@@ -400,7 +407,7 @@
 
 (setq-default ispell-program-name "/opt/local/bin/aspell")
 (dolist (hook '(text-mode-hook))
-      (add-hook hook (lambda () (flyspell-mode 1))))
+  (add-hook hook (lambda () (flyspell-mode 1))))
 
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/flymake-ruby"))
 (require 'flymake-ruby)
@@ -437,5 +444,41 @@
 ;; http://code.google.com/p/autopair/issues/detail?id=32
 (add-hook 'sldb-mode-hook #'(lambda () (setq autopair-dont-activate t)))
 
-(set 'cursor-type 'bar)
-(set-default 'cursor-type 'bar)
+;; (set 'cursor-type 'bar)
+;; (set-default 'cursor-type 'bar)
+
+(tool-bar-mode -1)
+
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/")
+(require 'org)
+
+(global-hl-line-mode)
+;;(set-face-background 'hl-line "#202000")
+(set-face-background 'hl-line "#222222")
+
+(require 'tty-format)  ;; interprets ansi codes in open buffer
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . nil)
+   (R . t)
+   (ruby . t)
+   (sh . t)))
+
+;; Set to the location of your Org files on your local system
+(setq org-directory "~/org")
+;; Set to the name of the file where new notes will be stored
+(setq org-mobile-inbox-for-pull "~/org/flagged.org")
+;; Set to <your Dropbox root directory>/MobileOrg.
+(setq org-mobile-directory "~/Dropbox/MobileOrg")
+
+;; org-mode customization
+(setq org-hide-leading-stars t)
+(org-remember-insinuate)
+(global-set-key (kbd "C-M-r") 'org-capture)
+;; needed for org mode embedded latex to work
+(setq exec-path (append exec-path '("/usr/texbin")))
+(dolist (hook '(org-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 0))))
+
+(toggle-scroll-bar -1)
